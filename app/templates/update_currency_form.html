@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+    <title>Update Currency</title>
+</head>
+<body class="flex justify-center items-center w-dvw h-dvh">
+    <div class="flex justify-center items-center w-64">
+
+        <form id="currency-value-update-form" class="flex flex-col justify-center items-center w-full">
+            <div class="flex justify-center mb-4">
+                <span class="text-2xl">Update currency</span>
+            </div>
+            <div class="flex flex-col mb-4 border border-gray-600 rounded-lg w-full p-4">
+                <label>Currency</label>
+                <select id="currency" name="currency" required>
+                    {% for currency in currency_keys %}
+                    <option value="{{currency}}">{{currency}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex flex-col mb-4 border border-gray-600 rounded-lg w-full p-4">
+                <label for="value">Value in USD:</label>
+                <input type="number" id="value" name="value" step="0.001" min="0.001" value="1.000" required>
+            </div>
+            <div id="update-status" class="flex justify-center mb-4 invisible">
+                <span>Successfully updated</span>
+            </div>
+            <div class="w-full flex justify-center mb-8">
+                <button class="w-56 h-12 bg-gray-200 rounded-lg" id="update" type="submit">Update</button>
+            </div>
+            <div class="w-full flex justify-center mb-8">
+                <button class="w-56 h-12 bg-gray-200 rounded-lg" id="clear" type="button">Clear</button>
+            </div>
+            <div class="w-full flex justify-between mb-8">
+                <a href="/"><button class="w-28 h-12 bg-gray-200 rounded-lg" id="home" type="button">Home</button></a>
+                <a href="/currencies"><button class="w-28 h-12 bg-gray-200 rounded-lg" id="currencies" type="button">Currencies</button></a>
+            </div>
+        </form>
+    </div>
+
+</body>
+<script>
+    document.getElementById("currency-value-update-form").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const currency = document.getElementById("currency").value;
+        const value = parseFloat(document.getElementById("value").value);
+
+        try {
+            const fetchProperties = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'currency': currency, value: value})
+            }
+
+            const response = await fetch(`/api/update`, fetchProperties);
+            const data = await response.json();
+            if (response.status == 201){
+                document.getElementById("update-status").classList.remove("invisible")
+            }
+            console.log(data)
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+
+    document.getElementById("clear").addEventListener("click", async function(event) {
+       window.location.reload();
+    });
+</script>
+</html>

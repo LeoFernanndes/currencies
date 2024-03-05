@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Currencies</title>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+        <style>
+            .custom-hide-scroolbar::-webkit-scrollbar {
+                display: none; /* Chrome, Safari and Opera */
+            }
+            .custom-hide-scroolbar {
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+            }
+            html { height: 100% }
+        </style>
+    </head>
+    <body class="flex justify-center items-center w-dvw h-full">
+        <div class="flex flex-col items-center w-64">
+            <div class="flex justify-center mb-8">
+                <span class="text-2xl text-center">Currencies update status</span>
+            </div>
+            <div class="flex justify-center mb-4">
+                <span class="text-center">Dollar indexed currencies</span>
+            </div>
+            <div class="flex flex-col w-full h-96 overflow-auto custom-hide-scroolbar">
+                {% for currency in currency_keys %}
+                <div class="flex flex-col mb-4 border border-gray-600 rounded-lg w-full p-4">
+                    <div class="flex justify-around">
+                        <div class="w-16 text-center mb-2">{{ currency }}</div>
+                        <div class="w-32 text-center">{{ currencies[currency]['value'] }} USD</div>
+                    </div>
+                    <div class="flex justify-center w-56">
+                        updated: {{ currencies[currency]['date'] }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="flex justify-center mt-12">
+                <a href="/"><button class="w-48 h-12 bg-gray-200 rounded-lg">Show conversion tool</button></a>
+            </div>
+        </div>
+    </body>
+</html>
