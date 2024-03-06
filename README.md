@@ -9,8 +9,8 @@ This is a test project for a junior developer position the requirements can be s
 - It must at least convert between USD, BRL, EUR, BTC and ETH.  
 
 ## Running the solution
-With docker-compose set up and ports 8000 and 5432 available, clone this repository and run `docker-compose up --build`
-to spin up the database and the application server
+With docker-compose set up and ports 8000 and 5432 available, clone this repository and run  
+`docker-compose up --build` to spin up the database and the application server
 
 ## User interface
 ### 1. Conversion tool
@@ -25,7 +25,7 @@ Path: `/currencies`
 User can see a list of the supported currencies and the last update timestamp
 
 ### 3. Update currency
-![img.png](readme-images/list.png)
+![img.png](readme-images/update.png)
 Path: `/update`  
 <font color="red">This UI should be protected under authentication</font>  
 Allows admin to fix or change any value for currency that was not correctly retrieved by the periodic backing system. 
