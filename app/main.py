@@ -18,7 +18,10 @@ from dto.currency_value import CurrencyValueCreate
 
 Base.metadata.create_all(bind=engine, checkfirst=True)
 
-app = FastAPI()
+app = FastAPI(
+    title='Currencies',
+    docs_url='/api/docs'
+)
 app.include_router(api_router)
 
 templates = Jinja2Templates(directory="templates")
